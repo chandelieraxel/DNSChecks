@@ -2,9 +2,15 @@ import dns from 'dns';
 import redis from 'redis';
 
 export default function () {
-    const cache = redis.createClient();
+    const redisOptions = {
+        host: process.env.redisHost,
+        port: process.env.redisPort,
+        password: process.env.redisPassword,
+    };
 
-    const subscriber = redis.createClient();
+    const cache = redis.createClient(redisOptions);
+
+    const subscriber = redis.createClient(redisOptions);
 
     const channel = 'NEW_DOMAIN';
 
